@@ -1,0 +1,281 @@
+/* ─────────────────────────────────────────────────────────────────
+   Services — Advanced
+───────────────────────────────────────────────────────────────── */
+
+.services-section {
+  position: relative;
+  background: var(--bg-secondary);
+  padding: 140px 0;
+  overflow: hidden;
+}
+
+/* ── BG grid lines ──────────────────────────────────────────────── */
+.svc-bg-lines {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.svc-bg-line {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  left: calc(var(--i) * 25% + 0%);
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(124,58,237,0.07) 20%,
+    rgba(124,58,237,0.05) 80%,
+    transparent 100%
+  );
+  transform-origin: top;
+  will-change: transform, opacity;
+}
+
+/* ── Orb ────────────────────────────────────────────────────────── */
+.svc-orb {
+  position: absolute;
+  bottom: -200px;
+  left: -150px;
+  width: 700px;
+  height: 700px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(124,58,237,0.06) 0%, transparent 70%);
+  pointer-events: none;
+  will-change: transform;
+}
+
+/* ── Container ──────────────────────────────────────────────────── */
+.svc-container {
+  padding-left: 24px;
+  padding-right: 24px;
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Head ───────────────────────────────────────────────────────── */
+.svc-head {
+  text-align: center;
+  max-width: 640px;
+  margin: 0 auto 72px;
+}
+
+/* ── Headline ───────────────────────────────────────────────────── */
+.svc-headline {
+  font-size: clamp(40px, 6vw, 76px);
+  font-weight: 800;
+  line-height: 1.0;
+  letter-spacing: -0.03em;
+  color: var(--text-primary);
+  margin: 20px 0 24px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0 16px;
+}
+
+.svc-word-wrap {
+  overflow: hidden;
+  display: inline-block;
+}
+
+.svc-word {
+  display: inline-block;
+  will-change: transform, opacity, filter;
+}
+
+/* ── Subtext ────────────────────────────────────────────────────── */
+.svc-subtext {
+  font-size: clamp(14px, 1.6vw, 16px);
+  color: var(--text-secondary);
+  line-height: 1.7;
+  font-weight: 300;
+  margin: 0;
+  will-change: opacity, transform, filter;
+}
+
+/* ── Grid ───────────────────────────────────────────────────────── */
+.svc-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+/* Last card spans if odd */
+.svc-grid .svc-card:last-child:nth-child(3n - 1) {
+  grid-column: 2;
+}
+
+/* ── Card ───────────────────────────────────────────────────────── */
+.svc-card {
+  position: relative;
+  background: rgba(255,255,255,0.75);
+  border: 1px solid rgba(124,58,237,0.09);
+  border-radius: 20px;
+  padding: 32px 28px;
+  overflow: hidden;
+  cursor: default;
+  will-change: transform, opacity, filter;
+  transition: border-color 0.35s ease, box-shadow 0.35s ease;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.svc-card--active,
+.svc-card:hover {
+  border-color: rgba(124,58,237,0.22);
+  box-shadow:
+    0 24px 64px rgba(124,58,237,0.11),
+    0 4px 20px rgba(0,0,0,0.05),
+    inset 0 1px 0 rgba(255,255,255,0.9);
+}
+
+/* Mouse-follow gradient spot */
+.svc-spot {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  transition: background 0.15s ease;
+  border-radius: 20px;
+}
+
+/* Top accent line — reveals on hover */
+.svc-line {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #7C3AED, #A855F7, #4F46E5);
+  transform: scaleX(0);
+  transform-origin: left;
+  border-radius: 0 0 2px 2px;
+}
+
+/* ── Card top row ───────────────────────────────────────────────── */
+.svc-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.svc-number {
+  font-family: 'Clash Display', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: rgba(124,58,237,0.35);
+}
+
+.svc-arrow {
+  color: #7C3AED;
+  opacity: 0;
+  transform: translateX(-8px);
+  will-change: transform, opacity;
+  display: flex;
+  align-items: center;
+}
+
+/* ── Icon ───────────────────────────────────────────────────────── */
+.svc-icon {
+  width: 52px;
+  height: 52px;
+  background: linear-gradient(135deg, rgba(124,58,237,0.1), rgba(168,85,247,0.07));
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent-primary, #7C3AED);
+  margin-bottom: 20px;
+  will-change: transform;
+  transition: background 0.3s ease;
+}
+.svc-card:hover .svc-icon {
+  background: linear-gradient(135deg, rgba(124,58,237,0.18), rgba(168,85,247,0.14));
+}
+
+/* ── Title ──────────────────────────────────────────────────────── */
+.svc-title {
+  font-family: 'Clash Display', sans-serif;
+  font-size: 19px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 12px;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+}
+
+/* ── Desc ───────────────────────────────────────────────────────── */
+.svc-desc {
+  font-size: 13.5px;
+  color: var(--text-secondary);
+  line-height: 1.65;
+  margin-bottom: 24px;
+  font-weight: 300;
+}
+
+/* ── Tags ───────────────────────────────────────────────────────── */
+.svc-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.svc-tag {
+  padding: 4px 11px;
+  background: rgba(124,58,237,0.07);
+  border: 1px solid rgba(124,58,237,0.12);
+  border-radius: 100px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #6D28D9;
+  letter-spacing: 0.04em;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+.svc-card:hover .svc-tag {
+  background: rgba(124,58,237,0.12);
+  border-color: rgba(124,58,237,0.22);
+}
+
+/* ── Gradient text ──────────────────────────────────────────────── */
+.gradient-text {
+  background: linear-gradient(90deg, #7C3AED 0%, #A855F7 40%, #4F46E5 70%, #7C3AED 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 4s linear infinite;
+}
+@keyframes shimmer {
+  0%   { background-position: 0% center; }
+  100% { background-position: 200% center; }
+}
+
+/* ── Dot pulse ──────────────────────────────────────────────────── */
+.dot--pulse { position: relative; }
+.dot--pulse::after {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border-radius: 50%;
+  border: 1.5px solid currentColor;
+  opacity: 0;
+  animation: dot-ping 2.2s ease-out infinite;
+}
+@keyframes dot-ping {
+  0%   { transform: scale(1);   opacity: 0.8; }
+  100% { transform: scale(2.5); opacity: 0; }
+}
+
+/* ── Responsive ─────────────────────────────────────────────────── */
+@media (max-width: 991px) {
+  .svc-grid { grid-template-columns: repeat(2, 1fr); }
+  .svc-grid .svc-card:last-child:nth-child(3n - 1) { grid-column: auto; }
+  .services-section { padding: 100px 0; }
+}
+
+@media (max-width: 576px) {
+  .svc-grid { grid-template-columns: 1fr; }
+}

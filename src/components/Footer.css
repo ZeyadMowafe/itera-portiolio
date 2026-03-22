@@ -1,0 +1,282 @@
+/* ─────────────────────────────────────────────────────────────────
+   Footer — Advanced
+───────────────────────────────────────────────────────────────── */
+
+.itera-footer {
+  position: relative;
+  background: #060310;
+  color: rgba(255,255,255,0.6);
+  padding: 100px 0 0;
+  overflow: hidden;
+}
+
+/* ── Orb ────────────────────────────────────────────────────────── */
+.ftr-orb {
+  position: absolute;
+  top: -200px;
+  right: -200px;
+  width: 700px;
+  height: 700px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(124,58,237,0.12) 0%, transparent 65%);
+  pointer-events: none;
+  will-change: transform;
+}
+
+/* ── Big decorative text ────────────────────────────────────────── */
+.ftr-big-text {
+  position: absolute;
+  bottom: 60px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: 'Clash Display', sans-serif;
+  font-weight: 800;
+  font-size: clamp(100px, 18vw, 220px);
+  letter-spacing: -0.04em;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(255,255,255,0.04);
+  white-space: nowrap;
+  pointer-events: none;
+  user-select: none;
+  will-change: transform, opacity, filter;
+  line-height: 1;
+}
+
+/* ── Container ──────────────────────────────────────────────────── */
+.ftr-container {
+  padding-left: 24px;
+  padding-right: 24px;
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Top ────────────────────────────────────────────────────────── */
+.ftr-top {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 80px;
+  padding-bottom: 64px;
+}
+
+/* ── Brand ──────────────────────────────────────────────────────── */
+.ftr-brand {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  will-change: transform, opacity, filter;
+}
+
+.ftr-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  width: fit-content;
+}
+
+.ftr-logo-box {
+  width: 40px;
+  height: 34px;
+  background: var(--accent-primary, #7C3AED);
+  border-radius: 9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.ftr-logo:hover .ftr-logo-box {
+  transform: rotate(-6deg) scale(1.08);
+  box-shadow: 0 6px 20px rgba(124,58,237,0.4);
+}
+
+.ftr-logo-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 5px 4px;
+}
+
+.ftr-logo-text {
+  font-family: 'Clash Display', sans-serif;
+  font-weight: 800;
+  font-size: 18px;
+  letter-spacing: 0.15em;
+  color: #fff;
+  transition: letter-spacing 0.3s;
+}
+.ftr-logo:hover .ftr-logo-text { letter-spacing: 0.22em; }
+
+/* ── Tagline ────────────────────────────────────────────────────── */
+.ftr-tagline {
+  font-size: 14px;
+  line-height: 1.72;
+  color: rgba(255,255,255,0.38);
+  max-width: 270px;
+  margin: 0;
+  font-weight: 300;
+}
+
+/* ── Availability ───────────────────────────────────────────────── */
+.ftr-available {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 12px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.35);
+  letter-spacing: 0.03em;
+}
+
+.ftr-avail-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #7C3AED;
+  flex-shrink: 0;
+  animation: ftr-pulse 2s ease-in-out infinite;
+}
+
+@keyframes ftr-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(124,58,237,0.5); }
+  50%       { box-shadow: 0 0 0 6px rgba(124,58,237,0); }
+}
+
+/* ── Socials ────────────────────────────────────────────────────── */
+.ftr-socials {
+  display: flex;
+  gap: 10px;
+}
+
+.ftr-social {
+  width: 38px;
+  height: 38px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255,255,255,0.4);
+  text-decoration: none;
+  transition: background 0.25s ease, border-color 0.25s ease, color 0.25s ease;
+  will-change: transform;
+}
+
+.ftr-social:hover {
+  background: rgba(124,58,237,0.2);
+  border-color: rgba(124,58,237,0.4);
+  color: #A855F7;
+}
+
+/* ── Links grid ─────────────────────────────────────────────────── */
+.ftr-links-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+}
+
+.ftr-col ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+}
+
+.ftr-col-title {
+  font-family: 'Clash Display', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.22);
+  margin-bottom: 20px;
+}
+
+.ftr-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13.5px;
+  color: rgba(255,255,255,0.42);
+  text-decoration: none;
+  transition: color 0.2s, gap 0.2s;
+  will-change: opacity, transform;
+}
+
+.ftr-link:hover {
+  color: rgba(255,255,255,0.9);
+  gap: 12px;
+}
+
+.ftr-link-dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: rgba(124,58,237,0.5);
+  flex-shrink: 0;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.ftr-link:hover .ftr-link-dot {
+  background: #A855F7;
+  transform: scale(1.5);
+}
+
+/* ── Divider ────────────────────────────────────────────────────── */
+.ftr-divider {
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent 0%,
+    rgba(255,255,255,0.08) 20%,
+    rgba(124,58,237,0.2) 50%,
+    rgba(255,255,255,0.08) 80%,
+    transparent 100%
+  );
+  margin-bottom: 28px;
+}
+
+/* ── Bottom ─────────────────────────────────────────────────────── */
+.ftr-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding-bottom: 40px;
+  will-change: opacity, transform;
+}
+
+.ftr-bottom p {
+  font-size: 12.5px;
+  color: rgba(255,255,255,0.22);
+  margin: 0;
+  letter-spacing: 0.02em;
+}
+
+.ftr-bottom-links {
+  display: flex;
+  gap: 24px;
+}
+
+.ftr-bottom-links .ftr-link {
+  font-size: 12.5px;
+  color: rgba(255,255,255,0.22);
+}
+.ftr-bottom-links .ftr-link:hover { color: rgba(255,255,255,0.7); }
+.ftr-bottom-links .ftr-link-dot   { display: none; }
+
+/* ── Responsive ─────────────────────────────────────────────────── */
+@media (max-width: 991px) {
+  .ftr-top { grid-template-columns: 1fr; gap: 48px; }
+  .ftr-big-text { font-size: 20vw; }
+}
+
+@media (max-width: 576px) {
+  .ftr-links-grid   { grid-template-columns: 1fr 1fr; gap: 32px; }
+  .ftr-bottom       { flex-direction: column; align-items: flex-start; }
+  .itera-footer     { padding-top: 80px; }
+}

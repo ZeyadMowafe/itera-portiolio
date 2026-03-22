@@ -1,0 +1,214 @@
+/* ─────────────────────────────────────────────────────────────────
+   Loading Screen — Enhanced
+───────────────────────────────────────────────────────────────── */
+
+.loading-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  background: #080511;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* Subtle noise texture */
+.loading-screen::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  opacity: 0.35;
+  pointer-events: none;
+}
+
+/* ── Center stack ─────────────────────────────────────────────── */
+.loading-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 28px;
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Rings wrap ───────────────────────────────────────────────── */
+.loading-rings-wrap {
+  position: relative;
+  width: 160px;
+  height: 160px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Concentric rings */
+.loading-ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid rgba(124, 58, 237, 0.22);
+  width: 110px;
+  height: 110px;
+  animation: ring-spin 12s linear infinite;
+}
+
+.loading-ring:nth-child(2) {
+  width: 146px;
+  height: 146px;
+  border-color: rgba(124, 58, 237, 0.14);
+  animation-duration: 16s;
+  animation-direction: reverse;
+}
+
+.loading-ring:nth-child(3) {
+  width: 182px;
+  height: 182px;
+  border-color: rgba(124, 58, 237, 0.08);
+  animation-duration: 20s;
+}
+
+@keyframes ring-spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Glow layers */
+.loading-glow-outer {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(124, 58, 237, 0.4) 0%, transparent 70%);
+  filter: blur(24px);
+  pointer-events: none;
+}
+
+.loading-glow-inner {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(168, 85, 247, 0.65) 0%, transparent 65%);
+  filter: blur(10px);
+  pointer-events: none;
+}
+
+/* Orbit dots */
+.loading-dot {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: rgba(167, 139, 250, 0.85);
+  /*
+    Place each dot along a circle of radius 72px.
+    transform-origin is center of .loading-rings-wrap.
+  */
+  top: calc(50% - 2.5px);
+  left: calc(50% - 2.5px);
+  transform:
+    rotate(var(--angle)) translateX(72px);
+  box-shadow: 0 0 8px rgba(167, 139, 250, 0.7);
+  animation: dot-pulse 2s ease-in-out infinite;
+  animation-delay: calc(var(--angle) / 360 * 2s);
+}
+
+@keyframes dot-pulse {
+
+  0%,
+  100% {
+    opacity: 0.55;
+    transform: rotate(var(--angle)) translateX(72px) scale(1);
+  }
+
+  50% {
+    opacity: 1;
+    transform: rotate(var(--angle)) translateX(72px) scale(1.5);
+  }
+}
+
+/* Logo */
+.loading-logo {
+  position: relative;
+  z-index: 2;
+  width: 80px;
+  height: 68px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  will-change: transform, opacity, filter;
+}
+
+.loading-logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  filter: drop-shadow(0 0 16px rgba(167, 139, 250, 0.65));
+}
+
+/* ── Wordmark ─────────────────────────────────────────────────── */
+.loading-wordmark {
+  font-family: 'Clash Display', sans-serif;
+  font-weight: 800;
+  font-size: 26px;
+  letter-spacing: 0.25em;
+  color: rgba(255, 255, 255, 0.92);
+  will-change: transform, opacity;
+  font-variant-numeric: tabular-nums;
+  min-width: 160px;
+  text-align: center;
+  contain: layout style;
+}
+
+/* ── Progress ─────────────────────────────────────────────────── */
+.loading-progress-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  will-change: transform, opacity;
+}
+
+.loading-progress {
+  width: 180px;
+  height: 1.5px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 100px;
+  overflow: hidden;
+}
+
+.loading-progress-bar {
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(90deg, #4F46E5, #7C3AED, #A855F7);
+  background-size: 200% 100%;
+  border-radius: 100px;
+  transform-origin: left center;
+  animation: bar-shimmer 1.5s linear infinite;
+}
+
+@keyframes bar-shimmer {
+  0% {
+    background-position: 100% 0;
+  }
+
+  100% {
+    background-position: -100% 0;
+  }
+}
+
+.loading-progress-num {
+  font-family: 'Cabinet Grotesk', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  color: rgba(255, 255, 255, 0.3);
+  font-variant-numeric: tabular-nums;
+}
