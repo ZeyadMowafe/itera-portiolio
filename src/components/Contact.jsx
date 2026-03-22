@@ -300,7 +300,7 @@ export default function Contact() {
                       type="text"
                       name="name"
                       className="ctc-input"
-                      placeholder="John Doe"
+                      placeholder="Enter Your Name"
                       value={formData.name}
                       onChange={handleChange}
                       onFocus={() => setFocused((f) => ({ ...f, name: true }))}
@@ -314,7 +314,7 @@ export default function Contact() {
                       type="email"
                       name="email"
                       className="ctc-input"
-                      placeholder="john@example.com"
+                      placeholder="Enter Your Email"
                       value={formData.email}
                       onChange={handleChange}
                       onFocus={() => setFocused((f) => ({ ...f, email: true }))}

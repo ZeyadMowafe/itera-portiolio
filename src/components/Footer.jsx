@@ -6,21 +6,24 @@ import "./Footer.css";
 gsap.registerPlugin(ScrollTrigger);
 
 const footerLinks = {
-  Company: ["About", "Services", "Process", "Projects"],
-  Services: [
-    "Web Development",
-    "Custom Systems",
-    "API Development",
-    "Dashboards",
+  Company: [
+    { label: "About", href: "#about" },
+    { label: "Services", href: "#services" },
+    { label: "Process", href: "#process" },
+    { label: "Projects", href: "#projects" },
   ],
-  Connect: ["GitHub", "LinkedIn", "Twitter", "Telegram"],
-};
-
-const sectionMap = {
-  About: "#about",
-  Services: "#services",
-  Process: "#process",
-  Projects: "#projects",
+  Services: [
+    { label: "Web Development", href: "#services" },
+    { label: "Custom Systems", href: "#services" },
+    { label: "API Development", href: "#services" },
+    { label: "Dashboards", href: "#services" },
+  ],
+  Connect: [
+    { label: "GitHub", href: "#" },
+    { label: "LinkedIn", href: "#" },
+    { label: "Twitter", href: "#" },
+    { label: "Telegram", href: "#" },
+  ],
 };
 
 export default function Footer() {
@@ -190,7 +193,7 @@ export default function Footer() {
               }}
             >
               <div className="ftr-logo-box">
-                <img src="./logo.svg" alt="Itera" />
+                <img src="./second_logo.svg" alt="Itera" />
               </div>
               <span className="ftr-logo-text">ITERA</span>
             </a>
@@ -224,7 +227,9 @@ export default function Footer() {
               ].map((s, i) => (
                 <a
                   key={s.name}
-                  href="#"
+                  href={s.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   aria-label={s.name}
                   ref={(el) => (socialsRef.current[i] = el)}
                   className="ftr-social"
@@ -253,12 +258,17 @@ export default function Footer() {
                   {links.map((link) => (
                     <li key={link}>
                       <a
-                        href="#"
+                        href={link.href}
                         className="ftr-link"
-                        onClick={(e) => handleNavClick(e, link)}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          document
+                            .querySelector(link.href)
+                            ?.scrollIntoView({ behavior: "smooth" });
+                        }}
                       >
                         <span className="ftr-link-dot" />
-                        {link}
+                        {link.label}
                       </a>
                     </li>
                   ))}

@@ -276,7 +276,7 @@ export default function Loading({ onComplete }) {
 
           {/* Logo */}
           <div ref={logoRef} className="loading-logo">
-            <img src="./logo.svg" alt="Itera" />
+            <img src="./second_logo.svg" alt="Itera" />
           </div>
         </div>
 
