@@ -183,7 +183,7 @@ export default function Navbar() {
             }}
           >
             <div className="nav-logo-box">
-              <img src="./logo.svg" alt="Itera" className="nav-logo-img" />
+              <img src="./second_logo.svg" alt="Itera" className="nav-logo-img" />
             </div>
             <span className="nav-logo-text">ITERA</span>
           </a>
