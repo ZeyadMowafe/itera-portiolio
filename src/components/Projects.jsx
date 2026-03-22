@@ -1,9 +1,55 @@
 import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+import { FaReact } from "react-icons/fa";
+import {
+  SiDjango,
+  SiPostgresql,
+  SiBootstrap,
+  SiRedis,
+  SiDocker,
+  SiSocketdotio,
+  SiChartdotjs,
+} from "react-icons/si";
+import { TbApi } from "react-icons/tb";
+
 import "./Projects.css";
 
 gsap.registerPlugin(ScrollTrigger);
+
+const techIconMap = {
+  React: { icon: FaReact, color: "#61DAFB" },
+  Django: { icon: SiDjango, color: "#092E20" },
+  PostgreSQL: { icon: SiPostgresql, color: "#336791" },
+  DRF: { icon: SiDjango, color: "#ff1709" },
+  Bootstrap: { icon: SiBootstrap, color: "#7952B3" },
+  Redis: { icon: SiRedis, color: "#DC382D" },
+  Docker: { icon: SiDocker, color: "#2496ED" },
+  WebSocket: { icon: SiSocketdotio, color: "#010101" },
+  Charts: { icon: SiChartdotjs, color: "#FF6384" },
+  API: { icon: TbApi, color: "#00B4D8" },
+};
+
+function TechTag({ tag, cardColor }) {
+  const tech = techIconMap[tag];
+  const Icon = tech?.icon;
+  return (
+    <span
+      className="prj-tag"
+      style={{
+        borderColor: `${cardColor}33`,
+        color: cardColor,
+        display: "inline-flex",
+        alignItems: "center",
+        gap: "5px",
+      }}
+    >
+      {Icon && <Icon size={12} color={tech.color} style={{ flexShrink: 0 }} />}
+      {tag}
+    </span>
+  );
+}
 
 const projects = [
   {
@@ -129,19 +175,16 @@ function ProjectModal({ project, onClose }) {
   const featuresRef = useRef([]);
 
   useEffect(() => {
-    /* Backdrop fade */
     gsap.fromTo(
       backdropRef.current,
       { opacity: 0 },
       { opacity: 1, duration: 0.35, ease: "power2.out" },
     );
-    /* Modal slide up */
     gsap.fromTo(
       modalRef.current,
       { opacity: 0, y: 40, scale: 0.95 },
       { opacity: 1, y: 0, scale: 1, duration: 0.45, ease: "power4.out" },
     );
-    /* Features stagger */
     gsap.fromTo(
       featuresRef.current,
       { opacity: 0, x: -20 },
@@ -154,7 +197,6 @@ function ProjectModal({ project, onClose }) {
         delay: 0.25,
       },
     );
-    /* Prevent body scroll */
     document.body.style.overflow = "hidden";
     return () => {
       document.body.style.overflow = "";
@@ -180,15 +222,12 @@ function ProjectModal({ project, onClose }) {
         className="prj-modal"
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Color band */}
         <div
           className="prj-modal-band"
           style={{
             background: `linear-gradient(90deg, ${project.color}, ${project.color}88)`,
           }}
         />
-
-        {/* Close */}
         <button
           className="prj-modal-close"
           onClick={handleClose}
@@ -205,7 +244,6 @@ function ProjectModal({ project, onClose }) {
             <path d="M18 6L6 18M6 6l12 12" />
           </svg>
         </button>
-
         <div className="prj-modal-body">
           <div className="prj-modal-meta">
             <span className="prj-modal-cat" style={{ color: project.color }}>
@@ -213,23 +251,12 @@ function ProjectModal({ project, onClose }) {
             </span>
             <div className="prj-modal-tags">
               {project.tags.map((t) => (
-                <span
-                  key={t}
-                  className="prj-tag"
-                  style={{
-                    borderColor: `${project.color}33`,
-                    color: project.color,
-                  }}
-                >
-                  {t}
-                </span>
+                <TechTag key={t} tag={t} cardColor={project.color} />
               ))}
             </div>
           </div>
-
           <h2 className="prj-modal-title">{project.title}</h2>
           <p className="prj-modal-desc">{project.details}</p>
-
           <h4 className="prj-modal-section-title">Key Features</h4>
           <ul className="prj-modal-features">
             {project.features.map((f, i) => (
@@ -242,7 +269,6 @@ function ProjectModal({ project, onClose }) {
               </li>
             ))}
           </ul>
-
           <h4 className="prj-modal-section-title">Demo Video</h4>
           {project.videoUrl ? (
             <div className="prj-video-wrap">
@@ -297,7 +323,6 @@ export default function Projects() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      /* Orb parallax */
       gsap.to(orbRef.current, {
         y: -80,
         ease: "none",
@@ -308,47 +333,61 @@ export default function Projects() {
           scrub: 2,
         },
       });
-
       gsap.fromTo(
         labelRef.current,
         { opacity: 0, x: -20 },
-        { opacity: 1, x: 0, duration: 0.7, ease: "power3.out",
-          scrollTrigger: { trigger: labelRef.current, start: "top 85%" } },
+        {
+          opacity: 1,
+          x: 0,
+          duration: 0.7,
+          ease: "power3.out",
+          scrollTrigger: { trigger: labelRef.current, start: "top 85%" },
+        },
       );
-
-      /* Headline */
       const words = headlineRef.current?.querySelectorAll(".prj-word");
       if (words?.length) {
         gsap.fromTo(
           words,
           { opacity: 0, y: 48, rotateX: -22 },
-          { opacity: 1, y: 0, rotateX: 0, duration: 0.85, stagger: 0.09, ease: "power4.out",
-            scrollTrigger: { trigger: headlineRef.current, start: "top 83%" } },
+          {
+            opacity: 1,
+            y: 0,
+            rotateX: 0,
+            duration: 0.85,
+            stagger: 0.09,
+            ease: "power4.out",
+            scrollTrigger: { trigger: headlineRef.current, start: "top 83%" },
+          },
         );
       }
-
-      /* Subtext */
       gsap.fromTo(
         subtextRef.current,
         { opacity: 0, y: 22 },
-        { opacity: 1, y: 0, duration: 0.7, ease: "power3.out",
-          scrollTrigger: { trigger: subtextRef.current, start: "top 85%" } },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.7,
+          ease: "power3.out",
+          scrollTrigger: { trigger: subtextRef.current, start: "top 85%" },
+        },
       );
-
-      /* Cards */
       cardsRef.current.forEach((card, i) => {
         if (!card) return;
-
-        /* Entrance — alternating from left/right */
         const xFrom = i % 2 === 0 ? -40 : 40;
         gsap.fromTo(
           card,
           { opacity: 0, y: 50, x: xFrom, scale: 0.94 },
-          { opacity: 1, y: 0, x: 0, scale: 1, duration: 0.8, delay: (i % 3) * 0.07,
-            ease: "power3.out", scrollTrigger: { trigger: card, start: "top 88%" } },
+          {
+            opacity: 1,
+            y: 0,
+            x: 0,
+            scale: 1,
+            duration: 0.8,
+            delay: (i % 3) * 0.07,
+            ease: "power3.out",
+            scrollTrigger: { trigger: card, start: "top 88%" },
+          },
         );
-
-        /* 3D tilt */
         const onMove = (e) => {
           const rect = card.getBoundingClientRect();
           const rx = ((e.clientY - rect.top) / rect.height - 0.5) * 8;
@@ -423,7 +462,6 @@ export default function Projects() {
         card.addEventListener("mouseleave", onLeave);
       });
     }, sectionRef);
-
     return () => ctx.revert();
   }, []);
 
@@ -432,15 +470,12 @@ export default function Projects() {
   return (
     <section id="projects" ref={sectionRef} className="prj-section">
       <div ref={orbRef} className="prj-orb" aria-hidden="true" />
-
       <div className="container-xl prj-container">
-        {/* Head */}
         <div className="prj-head">
           <div ref={labelRef} className="label-chip">
             <span className="dot dot--pulse" />
             Our Work
           </div>
-
           <div className="prj-head-grid">
             <h2
               ref={headlineRef}
@@ -464,7 +499,6 @@ export default function Projects() {
           </div>
         </div>
 
-        {/* Grid */}
         <div className="prj-grid">
           {projects.map((project, i) => (
             <div
@@ -474,15 +508,12 @@ export default function Projects() {
               onClick={() => setActiveProject(project)}
               style={{ transformStyle: "preserve-3d" }}
             >
-              {/* Top accent line */}
               <div
                 className="prj-line"
                 style={{
                   background: `linear-gradient(90deg, ${project.color}, ${project.color}66)`,
                 }}
               />
-
-              {/* Thumb */}
               <div
                 className="prj-thumb"
                 style={{ background: `rgba(${project.colorRgb},0.08)` }}
@@ -503,7 +534,6 @@ export default function Projects() {
                     <path d="M8 21h8M12 17v4" />
                   </svg>
                 </div>
-                {/* Hover overlay */}
                 <div
                   className="prj-thumb-overlay"
                   style={{ background: `rgba(${project.colorRgb},0.88)` }}
@@ -523,8 +553,6 @@ export default function Projects() {
                   </div>
                 </div>
               </div>
-
-              {/* Info */}
               <div className="prj-info">
                 <div className="prj-cat" style={{ color: project.color }}>
                   {project.category}
@@ -533,16 +561,7 @@ export default function Projects() {
                 <p className="prj-desc">{project.desc}</p>
                 <div className="prj-tags">
                   {project.tags.map((t) => (
-                    <span
-                      key={t}
-                      className="prj-tag"
-                      style={{
-                        borderColor: `${project.color}33`,
-                        color: project.color,
-                      }}
-                    >
-                      {t}
-                    </span>
+                    <TechTag key={t} tag={t} cardColor={project.color} />
                   ))}
                 </div>
               </div>

@@ -1,6 +1,19 @@
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+import {
+  SiHtml5,
+  SiCss3,
+  SiJavascript,
+  SiReact,
+  SiBootstrap,
+} from "react-icons/si";
+import { SiPython, SiDjango } from "react-icons/si";
+import { SiPostgresql, SiSqlite } from "react-icons/si";
+import { SiGit, SiGithub, SiDocker } from "react-icons/si";
+import { SiDjango as SiDrf } from "react-icons/si";
+
 import "./TechStack.css";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -11,11 +24,11 @@ const techCategories = [
     color: "#7C3AED",
     colorRgb: "124,58,237",
     items: [
-      { name: "HTML5", icon: "🌐" },
-      { name: "CSS3", icon: "🎨" },
-      { name: "JavaScript", icon: "⚡" },
-      { name: "React", icon: "⚛️" },
-      { name: "Bootstrap", icon: "🅱️" },
+      { name: "HTML5", icon: <SiHtml5 color="#E34F26" size={18} /> },
+      { name: "CSS3", icon: <SiCss3 color="#1572B6" size={18} /> },
+      { name: "JavaScript", icon: <SiJavascript color="#F7DF1E" size={18} /> },
+      { name: "React", icon: <SiReact color="#61DAFB" size={18} /> },
+      { name: "Bootstrap", icon: <SiBootstrap color="#7952B3" size={18} /> },
     ],
   },
   {
@@ -23,9 +36,9 @@ const techCategories = [
     color: "#A855F7",
     colorRgb: "168,85,247",
     items: [
-      { name: "Python", icon: "🐍" },
-      { name: "Django", icon: "🎯" },
-      { name: "DRF", icon: "🔌" },
+      { name: "Python", icon: <SiPython color="#3776AB" size={18} /> },
+      { name: "Django", icon: <SiDjango color="#092E20" size={18} /> },
+      { name: "DRF", icon: <SiDrf color="#ff1709" size={18} /> },
     ],
   },
   {
@@ -33,8 +46,8 @@ const techCategories = [
     color: "#4F46E5",
     colorRgb: "79,70,229",
     items: [
-      { name: "PostgreSQL", icon: "🐘" },
-      { name: "SQLite", icon: "💾" },
+      { name: "PostgreSQL", icon: <SiPostgresql color="#336791" size={18} /> },
+      { name: "SQLite", icon: <SiSqlite color="#003B57" size={18} /> },
     ],
   },
   {
@@ -42,9 +55,9 @@ const techCategories = [
     color: "#6D28D9",
     colorRgb: "109,40,217",
     items: [
-      { name: "Git", icon: "🔀" },
-      { name: "GitHub", icon: "🐙" },
-      { name: "Docker", icon: "🐳" },
+      { name: "Git", icon: <SiGit color="#F05032" size={18} /> },
+      { name: "GitHub", icon: <SiGithub color="#181717" size={18} /> },
+      { name: "Docker", icon: <SiDocker color="#2496ED" size={18} /> },
     ],
   },
 ];
@@ -60,7 +73,6 @@ export default function TechStack() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      /* ── Orb parallax ─────────────────────────────────────────── */
       gsap.to(orbRef.current, {
         y: -100,
         ease: "none",
@@ -72,45 +84,64 @@ export default function TechStack() {
         },
       });
 
-      /* ── Label ────────────────────────────────────────────────── */
       gsap.fromTo(
         labelRef.current,
         { opacity: 0, x: -20 },
-        { opacity: 1, x: 0, duration: 0.7, ease: "power3.out",
-          scrollTrigger: { trigger: labelRef.current, start: "top 85%" } },
+        {
+          opacity: 1,
+          x: 0,
+          duration: 0.7,
+          ease: "power3.out",
+          scrollTrigger: { trigger: labelRef.current, start: "top 85%" },
+        },
       );
 
-      /* ── Headline words ───────────────────────────────────────── */
       const words = headlineRef.current?.querySelectorAll(".ts-word");
       if (words?.length) {
         gsap.fromTo(
           words,
           { opacity: 0, y: 48, rotateX: -22 },
-          { opacity: 1, y: 0, rotateX: 0, duration: 0.85, stagger: 0.08, ease: "power4.out",
-            scrollTrigger: { trigger: headlineRef.current, start: "top 83%" } },
+          {
+            opacity: 1,
+            y: 0,
+            rotateX: 0,
+            duration: 0.85,
+            stagger: 0.08,
+            ease: "power4.out",
+            scrollTrigger: { trigger: headlineRef.current, start: "top 83%" },
+          },
         );
       }
 
-      /* ── Subtext ──────────────────────────────────────────────── */
       gsap.fromTo(
         subtextRef.current,
         { opacity: 0, y: 22 },
-        { opacity: 1, y: 0, duration: 0.7, ease: "power3.out",
-          scrollTrigger: { trigger: subtextRef.current, start: "top 85%" } },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.7,
+          ease: "power3.out",
+          scrollTrigger: { trigger: subtextRef.current, start: "top 85%" },
+        },
       );
 
-      /* ── Cards cascade ────────────────────────────────────────── */
       cardsRef.current.forEach((card, i) => {
         if (!card) return;
 
         gsap.fromTo(
           card,
           { opacity: 0, y: 50, scale: 0.94 },
-          { opacity: 1, y: 0, scale: 1, duration: 0.75, delay: i * 0.08, ease: "power3.out",
-            scrollTrigger: { trigger: card, start: "top 88%" } },
+          {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            duration: 0.75,
+            delay: i * 0.08,
+            ease: "power3.out",
+            scrollTrigger: { trigger: card, start: "top 88%" },
+          },
         );
 
-        /* Items stagger inside card */
         const items = card.querySelectorAll(".ts-item");
         gsap.fromTo(
           items,
@@ -125,7 +156,6 @@ export default function TechStack() {
           },
         );
 
-        /* 3D tilt */
         const onMove = (e) => {
           const rect = card.getBoundingClientRect();
           const rx = ((e.clientY - rect.top) / rect.height - 0.5) * 9;
@@ -183,8 +213,6 @@ export default function TechStack() {
         card.addEventListener("mouseleave", onLeave);
       });
 
-      /* ── Infinite marquee strip ───────────────────────────────── */
-      const allItems = techCategories.flatMap((c) => c.items);
       const track = trackRef.current;
       if (track) {
         gsap.to(track, {
@@ -199,7 +227,6 @@ export default function TechStack() {
     return () => ctx.revert();
   }, []);
 
-  /* Marquee items (doubled for seamless loop) */
   const marqueeItems = [
     ...techCategories.flatMap((c) => c.items),
     ...techCategories.flatMap((c) => c.items),
@@ -209,11 +236,9 @@ export default function TechStack() {
 
   return (
     <section id="tech" ref={sectionRef} className="techstack-section">
-      {/* Orb */}
       <div ref={orbRef} className="ts-orb" aria-hidden="true" />
 
       <div className="container-xl ts-container">
-        {/* Head */}
         <div className="ts-head">
           <div ref={labelRef} className="label-chip">
             <span className="dot dot--pulse" />
@@ -241,7 +266,6 @@ export default function TechStack() {
           </div>
         </div>
 
-        {/* Cards grid */}
         <div className="ts-grid">
           {techCategories.map((cat, i) => (
             <div
@@ -251,9 +275,7 @@ export default function TechStack() {
               data-rgb={cat.colorRgb}
               style={{ transformStyle: "preserve-3d" }}
             >
-              {/* Mouse-follow spot */}
               <div className="ts-spot" />
-              {/* Top accent line */}
               <div
                 className="ts-line"
                 style={{
@@ -285,12 +307,13 @@ export default function TechStack() {
         </div>
       </div>
 
-      {/* Infinite marquee strip */}
       <div className="ts-marquee" aria-hidden="true">
         <div ref={trackRef} className="ts-marquee-track">
           {marqueeItems.map((item, i) => (
             <div key={i} className="ts-marquee-item">
-              <span>{item.icon}</span>
+              <span style={{ display: "flex", alignItems: "center" }}>
+                {item.icon}
+              </span>
               <span>{item.name}</span>
             </div>
           ))}

@@ -129,8 +129,13 @@ export default function Process() {
       gsap.fromTo(
         labelRef.current,
         { opacity: 0, y: 20 },
-        { opacity: 1, y: 0, duration: 0.7, ease: "power3.out",
-          scrollTrigger: { trigger: labelRef.current, start: "top 85%" } },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.7,
+          ease: "power3.out",
+          scrollTrigger: { trigger: labelRef.current, start: "top 85%" },
+        },
       );
 
       /* ── Headline ─────────────────────────────────────────────── */
@@ -139,8 +144,15 @@ export default function Process() {
         gsap.fromTo(
           words,
           { opacity: 0, y: 48, rotateX: -22 },
-          { opacity: 1, y: 0, rotateX: 0, duration: 0.85, stagger: 0.09, ease: "power4.out",
-            scrollTrigger: { trigger: headlineRef.current, start: "top 83%" } },
+          {
+            opacity: 1,
+            y: 0,
+            rotateX: 0,
+            duration: 0.85,
+            stagger: 0.09,
+            ease: "power4.out",
+            scrollTrigger: { trigger: headlineRef.current, start: "top 83%" },
+          },
         );
       }
 
@@ -148,8 +160,13 @@ export default function Process() {
       gsap.fromTo(
         subtextRef.current,
         { opacity: 0, y: 22 },
-        { opacity: 1, y: 0, duration: 0.7, ease: "power3.out",
-          scrollTrigger: { trigger: subtextRef.current, start: "top 85%" } },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.7,
+          ease: "power3.out",
+          scrollTrigger: { trigger: subtextRef.current, start: "top 85%" },
+        },
       );
 
       /* ── Timeline line scrub ──────────────────────────────────── */
@@ -177,8 +194,13 @@ export default function Process() {
         gsap.fromTo(
           step,
           { opacity: 0, x: isLeft ? -50 : 50 },
-          { opacity: 1, x: 0, duration: 0.8, ease: "power3.out",
-            scrollTrigger: { trigger: step, start: "top 84%" } },
+          {
+            opacity: 1,
+            x: 0,
+            duration: 0.8,
+            ease: "power3.out",
+            scrollTrigger: { trigger: step, start: "top 84%" },
+          },
         );
 
         /* Dot pop */

@@ -1,9 +1,54 @@
 import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+import { FaReact } from "react-icons/fa";
+import {
+  SiDjango,
+  SiPostgresql,
+  SiBootstrap,
+  SiDocker,
+  SiChartdotjs,
+  SiSwagger,
+} from "react-icons/si";
+import { TbApi } from "react-icons/tb";
+import { VscSymbolNamespace } from "react-icons/vsc";
+
 import "./Services.css";
 
 gsap.registerPlugin(ScrollTrigger);
+
+const techIconMap = {
+  React: { icon: FaReact, color: "#61DAFB" },
+  "Next.js": { icon: FaReact, color: "#000000" },
+  Django: { icon: SiDjango, color: "#092E20" },
+  PostgreSQL: { icon: SiPostgresql, color: "#336791" },
+  "REST API": { icon: TbApi, color: "#00B4D8" },
+  DRF: { icon: SiDjango, color: "#ff1709" },
+  Auth: { icon: VscSymbolNamespace, color: "#F59E0B" },
+  Swagger: { icon: SiSwagger, color: "#85EA2D" },
+  Charts: { icon: SiChartdotjs, color: "#FF6384" },
+  Tables: { icon: TbApi, color: "#6366F1" },
+  Filters: { icon: TbApi, color: "#8B5CF6" },
+  "Full-Stack": { icon: VscSymbolNamespace, color: "#7C3AED" },
+  Docker: { icon: SiDocker, color: "#2496ED" },
+  "CI/CD": { icon: VscSymbolNamespace, color: "#10B981" },
+  Bootstrap: { icon: SiBootstrap, color: "#7952B3" },
+};
+
+function SvcTag({ tag }) {
+  const tech = techIconMap[tag];
+  const Icon = tech?.icon;
+  return (
+    <span
+      className="svc-tag"
+      style={{ display: "inline-flex", alignItems: "center", gap: "5px" }}
+    >
+      {Icon && <Icon size={12} color={tech.color} style={{ flexShrink: 0 }} />}
+      {tag}
+    </span>
+  );
+}
 
 const services = [
   {
@@ -117,7 +162,6 @@ export default function Services() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      /* ── BG lines draw in ─────────────────────────────────────── */
       gsap.fromTo(
         bgLinesRef.current,
         { scaleY: 0, opacity: 0 },
@@ -131,7 +175,6 @@ export default function Services() {
         },
       );
 
-      /* ── Orb parallax ─────────────────────────────────────────── */
       gsap.to(orbRef.current, {
         y: -80,
         ease: "none",
@@ -143,46 +186,64 @@ export default function Services() {
         },
       });
 
-      /* ── Label ────────────────────────────────────────────────── */
       gsap.fromTo(
         labelRef.current,
         { opacity: 0, y: 20 },
-        { opacity: 1, y: 0, duration: 0.7, ease: "power3.out",
-          scrollTrigger: { trigger: labelRef.current, start: "top 85%" } },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.7,
+          ease: "power3.out",
+          scrollTrigger: { trigger: labelRef.current, start: "top 85%" },
+        },
       );
 
-      /* ── Headline chars ───────────────────────────────────────── */
       const words = headlineRef.current?.querySelectorAll(".svc-word");
       if (words?.length) {
         gsap.fromTo(
           words,
           { opacity: 0, y: 50, rotateX: -25 },
-          { opacity: 1, y: 0, rotateX: 0, duration: 0.85, stagger: 0.09, ease: "power4.out",
-            scrollTrigger: { trigger: headlineRef.current, start: "top 83%" } },
+          {
+            opacity: 1,
+            y: 0,
+            rotateX: 0,
+            duration: 0.85,
+            stagger: 0.09,
+            ease: "power4.out",
+            scrollTrigger: { trigger: headlineRef.current, start: "top 83%" },
+          },
         );
       }
 
-      /* ── Subtext ──────────────────────────────────────────────── */
       gsap.fromTo(
         subtextRef.current,
         { opacity: 0, y: 22 },
-        { opacity: 1, y: 0, duration: 0.7, ease: "power3.out",
-          scrollTrigger: { trigger: subtextRef.current, start: "top 85%" } },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.7,
+          ease: "power3.out",
+          scrollTrigger: { trigger: subtextRef.current, start: "top 85%" },
+        },
       );
 
-      /* ── Cards cascade ────────────────────────────────────────── */
       cardsRef.current.forEach((card, i) => {
         if (!card) return;
 
-        /* Entrance */
         gsap.fromTo(
           card,
           { opacity: 0, y: 55, scale: 0.93 },
-          { opacity: 1, y: 0, scale: 1, duration: 0.75, delay: i * 0.07, ease: "power3.out",
-            scrollTrigger: { trigger: card, start: "top 88%" } },
+          {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            duration: 0.75,
+            delay: i * 0.07,
+            ease: "power3.out",
+            scrollTrigger: { trigger: card, start: "top 88%" },
+          },
         );
 
-        /* 3D tilt on hover */
         const onMove = (e) => {
           const rect = card.getBoundingClientRect();
           const rx = ((e.clientY - rect.top) / rect.height - 0.5) * 10;
@@ -194,7 +255,6 @@ export default function Services() {
             ease: "power2.out",
             transformPerspective: 900,
           });
-          /* Move gradient spot with mouse */
           const spotEl = card.querySelector(".svc-spot");
           if (spotEl) {
             const px = ((e.clientX - rect.left) / rect.width) * 100;
@@ -265,7 +325,6 @@ export default function Services() {
 
   return (
     <section id="services" ref={sectionRef} className="services-section">
-      {/* Background grid lines */}
       <div className="svc-bg-lines" aria-hidden="true">
         {[...Array(5)].map((_, i) => (
           <div
@@ -277,11 +336,9 @@ export default function Services() {
         ))}
       </div>
 
-      {/* Decorative orb */}
       <div ref={orbRef} className="svc-orb" aria-hidden="true" />
 
       <div className="container-xl svc-container">
-        {/* Head */}
         <div className="svc-head">
           <div ref={labelRef} className="label-chip">
             <span className="dot dot--pulse" />
@@ -308,7 +365,6 @@ export default function Services() {
           </p>
         </div>
 
-        {/* Grid */}
         <div className="svc-grid">
           {services.map((svc, i) => (
             <div
@@ -317,10 +373,7 @@ export default function Services() {
               className={`svc-card ${activeCard === i ? "svc-card--active" : ""}`}
               style={{ transformStyle: "preserve-3d" }}
             >
-              {/* Mouse-follow gradient spot */}
               <div className="svc-spot" />
-
-              {/* Top bar line */}
               <div className="svc-line" />
 
               <div className="svc-card-top">
@@ -345,9 +398,7 @@ export default function Services() {
 
               <div className="svc-tags">
                 {svc.tags.map((tag) => (
-                  <span key={tag} className="svc-tag">
-                    {tag}
-                  </span>
+                  <SvcTag key={tag} tag={tag} />
                 ))}
               </div>
             </div>
