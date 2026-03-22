@@ -81,7 +81,7 @@
 }
 
 .nav-logo-text {
-  font-family: 'Clash Display', sans-serif;
+  font-family: var(--font-display);
   font-weight: 800;
   font-size: 18px;
   letter-spacing: 0.15em;
@@ -104,7 +104,7 @@
 
 .nav-link {
   position: relative;
-  font-family: 'Clash Display', sans-serif;
+  font-family: var(--font-display);
   font-size: 13px;
   font-weight: 600;
   color: var(--text-secondary);
@@ -238,7 +238,7 @@
   display: flex;
   align-items: center;
   gap: 16px;
-  font-family: 'Clash Display', sans-serif;
+  font-family: var(--font-display);
   font-size: clamp(36px, 8vw, 60px);
   font-weight: 700;
   color: var(--text-primary);
@@ -260,7 +260,7 @@
 }
 
 .nav-overlay-num {
-  font-family: 'Clash Display', sans-serif;
+  font-family: var(--font-display);
   font-size: 13px;
   font-weight: 600;
   color: var(--text-muted);

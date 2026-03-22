@@ -217,7 +217,7 @@
 }
 
 .ctc-success h3 {
-  font-family: 'Clash Display', sans-serif;
+  font-family: var(--font-display);
   font-size: 24px;
   font-weight: 700;
   color: var(--text-primary);
@@ -246,7 +246,7 @@
 }
 
 .ctc-tagline-title {
-  font-family: 'Clash Display', sans-serif;
+  font-family: var(--font-display);
   font-size: 24px;
   font-weight: 700;
   color: var(--text-primary);

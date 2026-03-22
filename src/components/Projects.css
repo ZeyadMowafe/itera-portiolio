@@ -146,7 +146,7 @@
   align-items: center;
   gap: 8px;
   color: #fff;
-  font-family: 'Clash Display', sans-serif;
+  font-family: var(--font-display);
   font-weight: 700;
   font-size: 15px;
   opacity: 0;
@@ -168,7 +168,7 @@
 }
 
 .prj-title {
-  font-family: 'Clash Display', sans-serif;
+  font-family: var(--font-display);
   font-size: 18px;
   font-weight: 700;
   color: var(--text-primary);
@@ -329,7 +329,7 @@
 }
 
 .prj-modal-title {
-  font-family: 'Clash Display', sans-serif;
+  font-family: var(--font-display);
   font-size: 30px;
   font-weight: 800;
   color: var(--text-primary);
@@ -347,7 +347,7 @@
 }
 
 .prj-modal-section-title {
-  font-family: 'Clash Display', sans-serif;
+  font-family: var(--font-display);
   font-size: 13px;
   font-weight: 700;
   letter-spacing: 0.08em;
@@ -419,7 +419,7 @@
 }
 
 .prj-video-placeholder p {
-  font-family: 'Clash Display', sans-serif;
+  font-family: var(--font-display);
   font-weight: 700;
   font-size: 15px;
   color: var(--text-secondary);
