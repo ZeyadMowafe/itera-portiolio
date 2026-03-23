@@ -55,7 +55,7 @@ const services = [
     number: "01",
     title: "Web Development",
     desc: "High-performance websites and web applications built with modern frameworks. From landing pages to complex SPAs — crafted with pixel-perfect precision.",
-    tags: ["React", "Next.js", "Django"],
+    tags: ["React","Django"],
     icon: (
       <svg
         width="26"

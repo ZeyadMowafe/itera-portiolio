@@ -1,6 +1,8 @@
 import { useState, useEffect, useCallback } from "react";
 
 
+
+
 import {
   AnimationProvider,
   useAnimationReady,
@@ -15,6 +17,7 @@ import Projects from "./components/Projects";
 import Process from "./components/Process";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
+import FloatingButtons from "./components/FloatingButtons";
 
 function AppInner() {
   const [loading, setLoading] = useState(true);
@@ -74,6 +77,7 @@ function AppInner() {
         </main>
         <Footer />
       </div>
+      <FloatingButtons />
     </>
   );
 }
