@@ -43,3 +43,8 @@ vite.config.js.timestamp-*
 
 # Coverage
 coverage/
+
+# # Media / Videos
+# *.mp4
+# *.webm
+# src/assets/videos/

@@ -1,8 +1,12 @@
 import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import trive from "../assets/images/trive.jpeg";
+import zfe from "../assets/images/zfe.png";
+import smartqueue from "../assets/images/smart_queue.png";
+// import inventoryVideo from "../assets/videos/Z-F-E System.mp4";
 
-import { FaReact } from "react-icons/fa";
+import { FaReact, FaExternalLinkAlt, FaGithub } from "react-icons/fa";
 import {
   SiDjango,
   SiPostgresql,
@@ -18,6 +22,7 @@ import "./Projects.css";
 
 gsap.registerPlugin(ScrollTrigger);
 
+// ── Tech icon map ─────────────────────────────────────────────────
 const techIconMap = {
   React: { icon: FaReact, color: "#61DAFB" },
   Django: { icon: SiDjango, color: "#092E20" },
@@ -51,6 +56,7 @@ function TechTag({ tag, cardColor }) {
   );
 }
 
+// ── Projects data ─────────────────────────────────────────────────
 const projects = [
   {
     id: 1,
@@ -60,7 +66,10 @@ const projects = [
     tags: ["React", "Django", "PostgreSQL"],
     color: "#7C3AED",
     colorRgb: "124,58,237",
+    imageUrl: trive,
     videoUrl: "",
+    siteUrl: "https://trive-ecommerce.vercel.app/",
+    repoUrl: "",
     details:
       "EduTrack is a comprehensive LMS platform that enables educators to create and manage courses, track student progress, issue certificates, and generate detailed analytics. Built with a React frontend and Django REST Framework backend, it supports real-time notifications and integrates with payment gateways.",
     features: [
@@ -79,7 +88,10 @@ const projects = [
     tags: ["Django", "DRF", "Bootstrap"],
     color: "#A855F7",
     colorRgb: "168,85,247",
+    imageUrl: zfe,
     videoUrl: "",
+    siteUrl: "",
+    repoUrl: "",
     details:
       "InventoryPro is a robust inventory management solution designed for medium to large-scale operations. It features real-time stock monitoring, automated reorder alerts, supplier management, purchase order workflows, and comprehensive reporting with export capabilities.",
     features: [
@@ -92,13 +104,17 @@ const projects = [
   },
   {
     id: 3,
-    title: "AdminFlow Dashboard",
-    category: "Dashboard",
+    title: "SmartQueue",
+    category: "Backend API",
     desc: "A powerful admin dashboard with data visualization, role-based access, and advanced filtering capabilities.",
     tags: ["React", "Charts", "API"],
     color: "#4F46E5",
     colorRgb: "79,70,229",
+    imageUrl: smartqueue,
     videoUrl: "",
+    siteUrl: "",
+    repoUrl:
+      "https://github.com/FAROUKDEV7/SmartQueue-API-Intelligent-Queue-Booking-System",
     details:
       "AdminFlow is a highly customizable admin dashboard built for data-heavy applications. It features multi-level role-based access control, rich data visualizations, customizable widget layouts, bulk actions, and a global search system with live filtering across all data types.",
     features: [
@@ -109,66 +125,183 @@ const projects = [
       "Global search & filters",
     ],
   },
-  {
-    id: 4,
-    title: "RestaurantOS",
-    category: "Full-Stack App",
-    desc: "Complete restaurant management platform covering orders, kitchen display, reservations, and billing.",
-    tags: ["React", "Django", "WebSocket"],
-    color: "#6D28D9",
-    colorRgb: "109,40,217",
-    videoUrl: "",
-    details:
-      "RestaurantOS is an all-in-one restaurant operations platform. It connects front-of-house order taking with the kitchen display system in real time via WebSockets, manages table reservations, handles billing and split payments, and provides end-of-day sales summaries.",
-    features: [
-      "Real-time order flow",
-      "Kitchen display system",
-      "Table reservation module",
-      "Billing & split payments",
-      "Daily sales reports",
-    ],
-  },
-  {
-    id: 5,
-    title: "PropManager",
-    category: "Web Application",
-    desc: "Real estate property management platform for landlords with tenant portals, maintenance requests and contracts.",
-    tags: ["Django", "PostgreSQL", "Bootstrap"],
-    color: "#8B5CF6",
-    colorRgb: "139,92,246",
-    videoUrl: "",
-    details:
-      "PropManager simplifies property management for landlords and property managers. It includes tenant self-service portals, digital lease signing, maintenance request workflows, automated rent reminders, and a complete financial ledger per property.",
-    features: [
-      "Tenant portal",
-      "Digital lease contracts",
-      "Maintenance workflows",
-      "Automated rent reminders",
-      "Financial ledger",
-    ],
-  },
-  {
-    id: 6,
-    title: "DataPulse API",
-    category: "Backend API",
-    desc: "High-performance analytics API with OAuth2 authentication, rate limiting, and real-time data streaming.",
-    tags: ["DRF", "Redis", "Docker"],
-    color: "#7E22CE",
-    colorRgb: "126,34,206",
-    videoUrl: "",
-    details:
-      "DataPulse is a production-grade analytics API designed for high-throughput environments. It uses OAuth2 with JWT for authentication, Redis for caching and rate limiting, Celery for background processing, and supports server-sent events for real-time data streaming to connected clients.",
-    features: [
-      "OAuth2 + JWT auth",
-      "Redis caching & rate limiting",
-      "Celery task queue",
-      "Real-time SSE streaming",
-      "Full API documentation",
-    ],
-  },
 ];
 
-/* ── Modal ─────────────────────────────────────────────────────── */
+// ── ProjectMedia ──────────────────────────────────────────────────
+function ProjectMedia({ project }) {
+  const { videoUrl, imageUrl, siteUrl, repoUrl, color, colorRgb, title } =
+    project;
+
+  const openLink = (url) => {
+    if (url) window.open(url, "_blank", "noopener,noreferrer");
+  };
+
+  // 1️⃣ فيديو
+  if (videoUrl) {
+    const isLocalVideo =
+      videoUrl.includes(".mp4") || videoUrl.includes(".webm");
+    return (
+      <div className="prj-video-wrap">
+        {isLocalVideo ? (
+          <video
+            src={videoUrl}
+            controls
+            autoPlay
+            muted
+            loop
+            style={{
+              width: "100%",
+              height: "100%",
+              display: "block",
+              backgroundColor: "#000",
+            }}
+          />
+        ) : (
+          <iframe
+            src={videoUrl}
+            title={`${title} demo`}
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+          />
+        )}
+      </div>
+    );
+  }
+
+  const hasLink = siteUrl || repoUrl;
+
+  // 2️⃣ صورة
+  if (imageUrl) {
+    return (
+      <div
+        className="prj-media-img"
+        style={{ backgroundImage: `url(${imageUrl})` }}
+      >
+        {hasLink && (
+          <div
+            className="prj-media-overlay"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div
+              style={{
+                display: "flex",
+                gap: "14px",
+                flexWrap: "wrap",
+                justifyContent: "center",
+              }}
+            >
+              {siteUrl && (
+                <button
+                  className="prj-media-overlay-pill"
+                  onClick={() => openLink(siteUrl)}
+                  style={{ cursor: "pointer", outline: "none" }}
+                >
+                  <FaExternalLinkAlt size={14} color="#fff" />
+                  <span>Visit Website</span>
+                </button>
+              )}
+              {repoUrl && (
+                <button
+                  className="prj-media-overlay-pill"
+                  onClick={() => openLink(repoUrl)}
+                  style={{ cursor: "pointer", outline: "none" }}
+                >
+                  <FaGithub size={16} color="#fff" />
+                  <span>Source Code</span>
+                </button>
+              )}
+            </div>
+          </div>
+        )}
+      </div>
+    );
+  }
+
+  // 3️⃣ placeholder
+  return (
+    <div className="prj-video-placeholder" style={{ "--color": color }}>
+      <div
+        className="prj-play-icon"
+        style={{ marginBottom: hasLink ? "0" : "10px" }}
+      >
+        {hasLink ? (
+          siteUrl ? (
+            <FaExternalLinkAlt size={22} color={`rgba(${colorRgb},0.7)`} />
+          ) : (
+            <FaGithub size={24} color={`rgba(${colorRgb},0.7)`} />
+          )
+        ) : (
+          <svg
+            width="28"
+            height="28"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.5"
+          >
+            <circle cx="12" cy="12" r="10" />
+            <polygon
+              points="10 8 16 12 10 16 10 8"
+              fill="currentColor"
+              stroke="none"
+            />
+          </svg>
+        )}
+      </div>
+      {hasLink ? (
+        <div
+          style={{
+            display: "flex",
+            gap: "14px",
+            flexWrap: "wrap",
+            justifyContent: "center",
+            marginTop: "16px",
+          }}
+        >
+          {siteUrl && (
+            <button
+              className="prj-media-overlay-pill"
+              onClick={() => openLink(siteUrl)}
+              style={{
+                cursor: "pointer",
+                outline: "none",
+                transform: "none",
+                position: "relative",
+              }}
+            >
+              <FaExternalLinkAlt size={14} color="#fff" />
+              <span>Visit Website</span>
+            </button>
+          )}
+          {repoUrl && (
+            <button
+              className="prj-media-overlay-pill"
+              onClick={() => openLink(repoUrl)}
+              style={{
+                cursor: "pointer",
+                outline: "none",
+                transform: "none",
+                position: "relative",
+              }}
+            >
+              <FaGithub size={16} color="#fff" />
+              <span>Source Code</span>
+            </button>
+          )}
+        </div>
+      ) : (
+        <>
+          <p>Demo coming soon</p>
+          <span>
+            Add imageUrl, videoUrl, siteUrl, or repoUrl to the project
+          </span>
+        </>
+      )}
+    </div>
+  );
+}
+
+// ── Modal ─────────────────────────────────────────────────────────
 function ProjectModal({ project, onClose }) {
   const backdropRef = useRef(null);
   const modalRef = useRef(null);
@@ -214,6 +347,16 @@ function ProjectModal({ project, onClose }) {
       onComplete: onClose,
     });
   };
+
+  const mediaSectionTitle = project.videoUrl
+    ? "Demo Video"
+    : project.imageUrl
+      ? "Preview"
+      : project.siteUrl
+        ? "Live Website"
+        : project.repoUrl
+          ? "Source Code"
+          : "Preview";
 
   return (
     <div ref={backdropRef} className="prj-backdrop" onClick={handleClose}>
@@ -269,49 +412,15 @@ function ProjectModal({ project, onClose }) {
               </li>
             ))}
           </ul>
-          <h4 className="prj-modal-section-title">Demo Video</h4>
-          {project.videoUrl ? (
-            <div className="prj-video-wrap">
-              <iframe
-                src={project.videoUrl}
-                title={`${project.title} demo`}
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-              />
-            </div>
-          ) : (
-            <div
-              className="prj-video-placeholder"
-              style={{ "--color": project.color }}
-            >
-              <div className="prj-play-icon">
-                <svg
-                  width="28"
-                  height="28"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                >
-                  <circle cx="12" cy="12" r="10" />
-                  <polygon
-                    points="10 8 16 12 10 16 10 8"
-                    fill="currentColor"
-                    stroke="none"
-                  />
-                </svg>
-              </div>
-              <p>Demo video coming soon</p>
-              <span>Add your video URL to the projects data</span>
-            </div>
-          )}
+          <h4 className="prj-modal-section-title">{mediaSectionTitle}</h4>
+          <ProjectMedia project={project} />
         </div>
       </div>
     </div>
   );
 }
 
-/* ── Main component ────────────────────────────────────────────── */
+// ── Main component ────────────────────────────────────────────────
 export default function Projects() {
   const sectionRef = useRef(null);
   const labelRef = useRef(null);
@@ -516,24 +625,32 @@ export default function Projects() {
               />
               <div
                 className="prj-thumb"
-                style={{ background: `rgba(${project.colorRgb},0.08)` }}
+                style={
+                  project.imageUrl
+                    ? {
+                        background: `url(${project.imageUrl}) center top / cover no-repeat`,
+                      }
+                    : { background: `rgba(${project.colorRgb},0.08)` }
+                }
               >
-                <div
-                  className="prj-thumb-icon"
-                  style={{ color: project.color }}
-                >
-                  <svg
-                    width="52"
-                    height="52"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="0.9"
+                {!project.imageUrl && (
+                  <div
+                    className="prj-thumb-icon"
+                    style={{ color: project.color }}
                   >
-                    <rect x="2" y="3" width="20" height="14" rx="2" />
-                    <path d="M8 21h8M12 17v4" />
-                  </svg>
-                </div>
+                    <svg
+                      width="52"
+                      height="52"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="0.9"
+                    >
+                      <rect x="2" y="3" width="20" height="14" rx="2" />
+                      <path d="M8 21h8M12 17v4" />
+                    </svg>
+                  </div>
+                )}
                 <div
                   className="prj-thumb-overlay"
                   style={{ background: `rgba(${project.colorRgb},0.88)` }}

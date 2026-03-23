@@ -96,6 +96,7 @@ export default function Contact() {
   });
   const [submitted, setSubmitted] = useState(false);
   const [focused, setFocused] = useState({});
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -219,39 +220,62 @@ export default function Contact() {
   const handleChange = (e) =>
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const btn = submitBtnRef.current;
-    /* Button ripple */
-    gsap
-      .timeline()
-      .to(btn, { scale: 0.94, duration: 0.1, ease: "power2.in" })
-      .to(btn, { scale: 1.03, duration: 0.15, ease: "back.out(2)" })
-      .to(btn, {
-        scale: 1,
-        duration: 0.2,
-        ease: "power2.out",
-        onComplete: () => {
-          setSubmitted(true);
-          /* Success animation */
-          setTimeout(() => {
-            const success = sectionRef.current?.querySelector(".ctc-success");
-            if (success) {
-              gsap.fromTo(
-                success,
-                { opacity: 0, scale: 0.9, y: 20 },
-                {
-                  opacity: 1,
-                  scale: 1,
-                  y: 0,
-                  duration: 0.6,
-                  ease: "back.out(1.5)",
-                },
-              );
-            }
-          }, 50);
+    setLoading(true);
+
+    const payload = {
+      access_key: import.meta.env.VITE_WEB3FORMS_KEY,
+      name: formData.name,
+      email: formData.email,
+      project: formData.project,
+      message: formData.message,
+    };
+
+    try {
+      const res = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
         },
+        body: JSON.stringify(payload),
       });
+      const result = await res.json();
+
+      if (result.success) {
+        setLoading(false);
+        const btn = submitBtnRef.current;
+        gsap
+          .timeline()
+          .to(btn, { scale: 0.94, duration: 0.1, ease: "power2.in" })
+          .to(btn, { scale: 1.03, duration: 0.15, ease: "back.out(2)" })
+          .to(btn, {
+            scale: 1,
+            duration: 0.2,
+            ease: "power2.out",
+            onComplete: () => {
+              setSubmitted(true);
+              setTimeout(() => {
+                const success = sectionRef.current?.querySelector(".ctc-success");
+                if (success) {
+                  gsap.fromTo(
+                    success,
+                    { opacity: 0, scale: 0.9, y: 20 },
+                    { opacity: 1, scale: 1, y: 0, duration: 0.6, ease: "back.out(1.5)" },
+                  );
+                }
+              }, 50);
+            },
+          });
+      } else {
+        setLoading(false);
+        alert(result.message || "Something went wrong.");
+      }
+    } catch (error) {
+      setLoading(false);
+      alert("Network error, please try again.");
+    }
   };
 
   const headlineWords = ["Let's", "build", "something", "remarkable"];
@@ -338,12 +362,12 @@ export default function Contact() {
                     required
                   >
                     <option value="">Select a service...</option>
-                    <option value="web">Web Development</option>
-                    <option value="system">Custom System</option>
-                    <option value="api">Backend / API</option>
-                    <option value="dashboard">Dashboard / Admin</option>
-                    <option value="fullstack">Full-Stack Solution</option>
-                    <option value="other">Other</option>
+                    <option value="Web Development">Web Development</option>
+                    <option value="Custom System">Custom System</option>
+                    <option value="Backend / API">Backend / API</option>
+                    <option value="Dashboard / Admin">Dashboard / Admin</option>
+                    <option value="Full-Stack Solution">Full-Stack Solution</option>
+                    <option value="Other">Other</option>
                   </select>
                 </FloatingField>
 
@@ -368,19 +392,22 @@ export default function Contact() {
                   ref={submitBtnRef}
                   type="submit"
                   className="btn-itera ctc-submit"
+                  disabled={loading}
                 >
-                  Send Message
-                  <svg
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                  >
-                    <line x1="22" y1="2" x2="11" y2="13" />
-                    <polygon points="22 2 15 22 11 13 2 9 22 2" />
-                  </svg>
+                  {loading ? "Sending..." : "Send Message"}
+                  {!loading && (
+                    <svg
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                    >
+                      <line x1="22" y1="2" x2="11" y2="13" />
+                      <polygon points="22 2 15 22 11 13 2 9 22 2" />
+                    </svg>
+                  )}
                 </button>
               </form>
             ) : (
