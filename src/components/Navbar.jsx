@@ -95,8 +95,32 @@ export default function Navbar() {
 
   /* ── Menu open/close ─────────────────────────────────────────── */
   useEffect(() => {
+    let scrollInterval;
+    let fallbackTimeout;
+
     if (!menuOverlayRef.current) return;
+    
     if (menuOpen) {
+      // 1. Trigger smooth scroll to the top
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      
+      // 2. Soft-lock scrolling temporarily
+      document.body.style.overflow = "hidden";
+
+      // 3. Wait until we reach the top before applying the hard lock (position: fixed)
+      scrollInterval = setInterval(() => {
+        if (window.scrollY <= 10) {
+          document.body.classList.add("menu-open");
+          clearInterval(scrollInterval);
+        }
+      }, 50);
+
+      // Fallback safely in case smooth scroll takes too long or gets stuck
+      fallbackTimeout = setTimeout(() => {
+        document.body.classList.add("menu-open");
+        clearInterval(scrollInterval);
+      }, 1200);
+
       gsap.set(menuOverlayRef.current, { display: "flex" });
       const tl = gsap.timeline();
       tl.fromTo(
@@ -117,6 +141,10 @@ export default function Navbar() {
         "-=0.2",
       );
     } else {
+      // Restore background scrolling
+      document.body.classList.remove("menu-open");
+      document.body.style.overflow = "";
+
       const tl = gsap.timeline({
         onComplete: () => gsap.set(menuOverlayRef.current, { display: "none" }),
       });
@@ -136,6 +164,12 @@ export default function Navbar() {
         "-=0.1",
       );
     }
+
+    // Cleanup intervals/timeouts if component unmounts or menuOpen changes
+    return () => {
+      clearInterval(scrollInterval);
+      clearTimeout(fallbackTimeout);
+    };
   }, [menuOpen]);
 
   /* ── Magnetic logo ───────────────────────────────────────────── */
@@ -160,9 +194,20 @@ export default function Navbar() {
 
   const handleNavClick = (e, href) => {
     e.preventDefault();
+    
+    // Close the menu
     setMenuOpen(false);
+    
     const el = document.querySelector(href);
-    if (el) el.scrollIntoView({ behavior: "smooth" });
+    if (el) {
+      // Timeout ensures the body position:fixed is fully removed before scrolling
+      // We also calculate offset to account for the fixed navbar height
+      setTimeout(() => {
+        const navHeight = 80;
+        const targetPosition = el.getBoundingClientRect().top + window.scrollY - navHeight;
+        window.scrollTo({ top: targetPosition, behavior: "smooth" });
+      }, 150);
+    }
   };
 
   return (
@@ -243,6 +288,16 @@ export default function Navbar() {
         className="nav-overlay"
         style={{ display: "none" }}
       >
+        <button 
+          className="nav-overlay-close" 
+          onClick={() => setMenuOpen(false)}
+          aria-label="Close Menu"
+        >
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
         <ul className="nav-overlay-links">
           {navLinks.map((link, i) => (
             <li key={link.label} ref={(el) => (menuLinksRef.current[i] = el)}>
