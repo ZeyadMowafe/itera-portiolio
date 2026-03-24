@@ -66,6 +66,12 @@ export default function Navbar() {
   /* ── Scroll: progress bar + state ─────────────────────────────── */
   useEffect(() => {
     const onScroll = () => {
+      // Prevent unreliable offset calculations when the page is locked for the menu
+      if (document.body.classList.contains("menu-open") || document.body.style.overflow === "hidden") {
+        setActiveLink(null);
+        return;
+      }
+
       const y = window.scrollY;
       setScrolled(y > 60);
 

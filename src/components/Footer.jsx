@@ -256,7 +256,7 @@ export default function Footer() {
                 <h5 className="ftr-col-title">{cat}</h5>
                 <ul>
                   {links.map((link) => (
-                    <li key={link}>
+                    <li key={link.label}>
                       <a
                         href={link.href}
                         className="ftr-link"
