@@ -148,42 +148,44 @@
 /* Ghost echo */
 .fb-stt-ghost {
   position: absolute;
-  width: 40px;
-  height: 34px;
+  width: 30px;
+  height: 22px;
   pointer-events: none;
-  animation: stt-ghost-rise 1.8s ease-in-out infinite;
+  animation: stt-ghost-rise 2.2s ease-in infinite;
   opacity: 0;
 }
 @keyframes stt-ghost-rise {
-  0%   { transform: translateY(6px);  opacity: 0.22; }
-  40%  { opacity: 0; }
-  100% { transform: translateY(-22px); opacity: 0; }
+  0%   { transform: translateY(8px);  opacity: 0.5; }
+  30%  { opacity: 0.35; }
+  70%  { opacity: 0; }
+  100% { transform: translateY(-44px); opacity: 0; }
 }
 
-/* Logo float */
+/* Chevron float */
 .fb-stt-logo {
   position: absolute;
-  width: 40px;
-  height: 34px;
+  width: 30px;
+  height: 22px;
   z-index: 2;
   pointer-events: none;
-  animation: stt-logo-float 1.8s ease-in-out infinite;
+  animation: stt-logo-float 2.4s cubic-bezier(0.45, 0, 0.55, 1) infinite;
 }
 @keyframes stt-logo-float {
-  0%, 100% { transform: translateY(0); }
-  50%       { transform: translateY(-8px); }
+  0%   { transform: translateY(7px); }
+  45%  { transform: translateY(-13px); }
+  100% { transform: translateY(7px); }
 }
 
 /* Paths */
 .fb-stt-path {
   fill: none;
-  stroke-width: 50;
+  stroke: url(#stt-logo-g);
+  stroke-width: 4.5;
   stroke-linecap: round;
   stroke-linejoin: round;
   will-change: stroke-dashoffset;
 }
-.fb-stt-path--1 { stroke: url(#stt-logo-g); }
-.fb-stt-path--2 { stroke: url(#stt-logo-g); opacity: 0.6; }
+.fb-stt-path--2 { opacity: 0.85; }
 
 /* Orb */
 .fb-stt-orb {
