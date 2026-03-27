@@ -3,7 +3,7 @@ import { gsap } from "gsap";
 import "./FloatingButtons.css";
 
 /* ── Config ── */
-const WA_NUMBER  = "201234567890";
+const WA_NUMBER  = "+201044423156";
 const WA_MESSAGE = "مرحباً، أود الاستفسار عن خدماتكم 👋";
 const WA_URL     = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(WA_MESSAGE)}`;
 const SCROLL_THRESHOLD = 300; // بعد كام px يحصل الـ swap

@@ -1,7 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
-
-
-
+import { Routes, Route } from "react-router-dom";
 
 import {
   AnimationProvider,
@@ -18,31 +16,25 @@ import Process from "./components/Process";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 import FloatingButtons from "./components/FloatingButtons";
+import PrivacyPolicy from "./components/LegalPrivacy";
+import TermsOfService from "./components/TermsOfService";
 
+/* ── Main portfolio page ─────────────────────────────────────────── */
 function AppInner() {
   const [loading, setLoading] = useState(true);
   const { setReady } = useAnimationReady();
 
-  /* ── Bootstrap JS ──────────────────────────────────────────────── */
   useEffect(() => {
     import("bootstrap/dist/js/bootstrap.bundle.min.js");
   }, []);
 
-  /* ── Disable scroll while loading ─────────────────────────────── */
-  /* NOTE: removed body overflow:hidden — the loading-screen is position:fixed
-     which already blocks interaction. Manipulating overflow causes scrollbar
-     to appear/disappear on loading end, which creates CLS. */
-
-  /* ── Called by Loading when its exit animation finishes ────────── */
   const handleLoadingComplete = useCallback(() => {
-    /* Force scroll to top before revealing anything */
     window.scrollTo({ top: 0, left: 0, behavior: "instant" });
     document.documentElement.scrollTop = 0;
     document.body.scrollTop = 0;
 
     setLoading(false);
 
-    /* Trigger hero animations — cap fonts wait at 300ms to not hurt LCP */
     const fontsOrTimeout = Promise.race([
       document.fonts.ready,
       new Promise((r) => setTimeout(r, 300)),
@@ -55,15 +47,12 @@ function AppInner() {
     });
   }, [setReady]);
 
-
   return (
     <>
       <div className="noise-overlay" />
 
-      {/* Loading stays mounted until its own animation finishes */}
       {loading && <Loading onComplete={handleLoadingComplete} />}
 
-      {/* Shell preloads in background — hidden during loader, revealed after */}
       <div className={loading ? "app-shell-hidden" : "app-shell-visible"}>
         <Navbar />
         <main>
@@ -82,10 +71,46 @@ function AppInner() {
   );
 }
 
+/* ── Legal page wrapper — no Navbar, has FloatingButtons ── */
+function LegalPage({ children }) {
+  useEffect(() => {
+    import("bootstrap/dist/js/bootstrap.bundle.min.js");
+  }, []);
+
+  return (
+    <>
+      <div className="noise-overlay" />
+      {children}
+      <Footer />
+      <FloatingButtons />
+    </>
+  );
+}
+
+/* ── Root with routing ───────────────────────────────────────────── */
 export default function App() {
   return (
     <AnimationProvider>
-      <AppInner />
+      <Routes>
+        <Route path="/" element={<AppInner />} />
+
+        <Route
+          path="/privacy-policy"
+          element={
+            <LegalPage>
+              <PrivacyPolicy />
+            </LegalPage>
+          }
+        />
+        <Route
+          path="/terms-of-service"
+          element={
+            <LegalPage>
+              <TermsOfService />
+            </LegalPage>
+          }
+        />
+      </Routes>
     </AnimationProvider>
   );
 }

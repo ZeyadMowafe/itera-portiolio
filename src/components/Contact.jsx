@@ -21,8 +21,8 @@ const contactInfo = [
       </svg>
     ),
     label: "Email Us",
-    value: "hello@itera.dev",
-    href: "mailto:hello@itera.dev",
+    value: "itera.codes@gmail.com",
+    href: "https://mail.google.com/mail/?view=cm&fs=1&to=itera.codes@gmail.com&su=Contact%20Us&body=Hi%20there!",
     color: "#7C3AED",
     colorRgb: "124,58,237",
   },
@@ -40,8 +40,8 @@ const contactInfo = [
       </svg>
     ),
     label: "WhatsApp",
-    value: "+1 (555) 000-0000",
-    href: "https://wa.me/15550000000",
+    value: "+20 104 442 3156",
+    href: "https://wa.me/201044423156?text=Hello%2C%20I%20want%20to%20get%20in%20touch%20with%20Itera%20studio",
     color: "#A855F7",
     colorRgb: "168,85,247",
   },
@@ -116,8 +116,13 @@ export default function Contact() {
       gsap.fromTo(
         labelRef.current,
         { opacity: 0, x: -20 },
-        { opacity: 1, x: 0, duration: 0.7, ease: "power3.out",
-          scrollTrigger: { trigger: labelRef.current, start: "top 85%" } },
+        {
+          opacity: 1,
+          x: 0,
+          duration: 0.7,
+          ease: "power3.out",
+          scrollTrigger: { trigger: labelRef.current, start: "top 85%" },
+        },
       );
 
       /* ── Headline ─────────────────────────────────────────────── */
@@ -126,8 +131,15 @@ export default function Contact() {
         gsap.fromTo(
           words,
           { opacity: 0, y: 48, rotateX: -22 },
-          { opacity: 1, y: 0, rotateX: 0, duration: 0.85, stagger: 0.08, ease: "power4.out",
-            scrollTrigger: { trigger: headlineRef.current, start: "top 83%" } },
+          {
+            opacity: 1,
+            y: 0,
+            rotateX: 0,
+            duration: 0.85,
+            stagger: 0.08,
+            ease: "power4.out",
+            scrollTrigger: { trigger: headlineRef.current, start: "top 83%" },
+          },
         );
       }
 
@@ -135,24 +147,40 @@ export default function Contact() {
       gsap.fromTo(
         subtextRef.current,
         { opacity: 0, y: 22 },
-        { opacity: 1, y: 0, duration: 0.7, ease: "power3.out",
-          scrollTrigger: { trigger: subtextRef.current, start: "top 85%" } },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.7,
+          ease: "power3.out",
+          scrollTrigger: { trigger: subtextRef.current, start: "top 85%" },
+        },
       );
 
       /* ── Form wrap ────────────────────────────────────────────── */
       gsap.fromTo(
         formWrapRef.current,
         { opacity: 0, x: -48, scale: 0.96 },
-        { opacity: 1, x: 0, scale: 1, duration: 0.85, ease: "power3.out",
-          scrollTrigger: { trigger: formWrapRef.current, start: "top 82%" } },
+        {
+          opacity: 1,
+          x: 0,
+          scale: 1,
+          duration: 0.85,
+          ease: "power3.out",
+          scrollTrigger: { trigger: formWrapRef.current, start: "top 82%" },
+        },
       );
 
       /* ── Info + channels ──────────────────────────────────────── */
       gsap.fromTo(
         infoRef.current,
         { opacity: 0, x: 48 },
-        { opacity: 1, x: 0, duration: 0.85, ease: "power3.out",
-          scrollTrigger: { trigger: infoRef.current, start: "top 82%" } },
+        {
+          opacity: 1,
+          x: 0,
+          duration: 0.85,
+          ease: "power3.out",
+          scrollTrigger: { trigger: infoRef.current, start: "top 82%" },
+        },
       );
 
       channelsRef.current.forEach((ch, i) => {
@@ -257,12 +285,19 @@ export default function Contact() {
             onComplete: () => {
               setSubmitted(true);
               setTimeout(() => {
-                const success = sectionRef.current?.querySelector(".ctc-success");
+                const success =
+                  sectionRef.current?.querySelector(".ctc-success");
                 if (success) {
                   gsap.fromTo(
                     success,
                     { opacity: 0, scale: 0.9, y: 20 },
-                    { opacity: 1, scale: 1, y: 0, duration: 0.6, ease: "back.out(1.5)" },
+                    {
+                      opacity: 1,
+                      scale: 1,
+                      y: 0,
+                      duration: 0.6,
+                      ease: "back.out(1.5)",
+                    },
                   );
                 }
               }, 50);
@@ -366,7 +401,9 @@ export default function Contact() {
                     <option value="Custom System">Custom System</option>
                     <option value="Backend / API">Backend / API</option>
                     <option value="Dashboard / Admin">Dashboard / Admin</option>
-                    <option value="Full-Stack Solution">Full-Stack Solution</option>
+                    <option value="Full-Stack Solution">
+                      Full-Stack Solution
+                    </option>
                     <option value="Other">Other</option>
                   </select>
                 </FloatingField>

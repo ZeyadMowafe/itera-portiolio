@@ -630,7 +630,7 @@ export default function Hero() {
                 delay: 1050,
               },
               {
-                value: "1",
+                value: "2",
                 suffix: "+",
                 label: "Years Experience",
                 delay: 1200,
