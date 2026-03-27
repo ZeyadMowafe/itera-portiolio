@@ -1,214 +1,167 @@
 /* ─────────────────────────────────────────────────────────────────
-   Loading Screen — Enhanced
+   Loading Screen — Arcs slide from opposite sides to form logo
 ───────────────────────────────────────────────────────────────── */
 
 .loading-screen {
   position: fixed;
   inset: 0;
   z-index: 99999;
-  background: #080511;
+  background: #07040f;
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
 }
 
-/* Subtle noise texture */
+/* Noise grain overlay */
 .loading-screen::before {
   content: '';
   position: absolute;
   inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-  opacity: 0.35;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  opacity: 0.22;
   pointer-events: none;
 }
 
-/* ── Center stack ─────────────────────────────────────────────── */
+/* ── Background ambient radial ──────────────────────────────────── */
+.loading-ambient {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 520px;
+  height: 520px;
+  border-radius: 50%;
+  /* START: hidden */
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.4);
+  background: radial-gradient(
+    circle,
+    rgba(109, 40, 217, 0.26)  0%,
+    rgba(124, 58, 237, 0.14) 35%,
+    rgba(139, 92, 246, 0.06) 60%,
+    transparent 75%
+  );
+  filter: blur(40px);
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+
+/* ── Center stack ───────────────────────────────────────────────── */
 .loading-center {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 28px;
-  position: relative;
-  z-index: 1;
-}
-
-/* ── Rings wrap ───────────────────────────────────────────────── */
-.loading-rings-wrap {
-  position: relative;
-  width: 160px;
-  height: 160px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* Concentric rings */
-.loading-ring {
-  position: absolute;
-  border-radius: 50%;
-  border: 1px solid rgba(124, 58, 237, 0.22);
-  width: 110px;
-  height: 110px;
-  animation: ring-spin 12s linear infinite;
-}
-
-.loading-ring:nth-child(2) {
-  width: 146px;
-  height: 146px;
-  border-color: rgba(124, 58, 237, 0.14);
-  animation-duration: 16s;
-  animation-direction: reverse;
-}
-
-.loading-ring:nth-child(3) {
-  width: 182px;
-  height: 182px;
-  border-color: rgba(124, 58, 237, 0.08);
-  animation-duration: 20s;
-}
-
-@keyframes ring-spin {
-  from {
-    transform: rotate(0deg);
-  }
-
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-/* Glow layers */
-.loading-glow-outer {
-  position: absolute;
-  width: 200px;
-  height: 200px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(124, 58, 237, 0.4) 0%, transparent 70%);
-  filter: blur(24px);
-  pointer-events: none;
-}
-
-.loading-glow-inner {
-  position: absolute;
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(168, 85, 247, 0.65) 0%, transparent 65%);
-  filter: blur(10px);
-  pointer-events: none;
-}
-
-/* Orbit dots */
-.loading-dot {
-  position: absolute;
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background: rgba(167, 139, 250, 0.85);
-  /*
-    Place each dot along a circle of radius 72px.
-    transform-origin is center of .loading-rings-wrap.
-  */
-  top: calc(50% - 2.5px);
-  left: calc(50% - 2.5px);
-  transform:
-    rotate(var(--angle)) translateX(72px);
-  box-shadow: 0 0 8px rgba(167, 139, 250, 0.7);
-  animation: dot-pulse 2s ease-in-out infinite;
-  animation-delay: calc(var(--angle) / 360 * 2s);
-}
-
-@keyframes dot-pulse {
-
-  0%,
-  100% {
-    opacity: 0.55;
-    transform: rotate(var(--angle)) translateX(72px) scale(1);
-  }
-
-  50% {
-    opacity: 1;
-    transform: rotate(var(--angle)) translateX(72px) scale(1.5);
-  }
-}
-
-/* Logo */
-.loading-logo {
+  gap: 20px;
   position: relative;
   z-index: 2;
-  width: 80px;
-  height: 68px;
+  width: 100%;
+  max-width: 500px;
+}
+
+/* ── Logo wrap ──────────────────────────────────────────────────── */
+.loading-logo-wrap {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  will-change: transform, opacity, filter;
+  will-change: transform;
 }
 
-.loading-logo img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
+/* ── Collision glow burst ───────────────────────────────────────── */
+.loading-glow-burst {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  /* START: hidden */
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.2);
+  background: radial-gradient(
+    circle,
+    rgba(196, 181, 253, 0.65) 0%,
+    rgba(124, 58, 237, 0.35)  35%,
+    transparent 70%
+  );
+  filter: blur(18px);
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+
+/* ── SVG ────────────────────────────────────────────────────────── */
+.loading-logo-svg {
+  width: 260px;
+  height: 203px;
   display: block;
-  filter: drop-shadow(0 0 16px rgba(167, 139, 250, 0.65));
+  filter:
+    drop-shadow(0 0 14px rgba(196, 181, 253, 0.5))
+    drop-shadow(0 0 38px rgba(124, 58, 237, 0.28));
 }
 
-/* ── Wordmark ─────────────────────────────────────────────────── */
-.loading-wordmark {
-  font-family: var(--font-display);
-  font-weight: 800;
-  font-size: 26px;
-  letter-spacing: 0.25em;
-  color: rgba(255, 255, 255, 0.92);
-  will-change: transform, opacity;
-  font-variant-numeric: tabular-nums;
-  min-width: 160px;
-  text-align: center;
-  contain: layout style;
-}
-
-/* ── Progress ─────────────────────────────────────────────────── */
-.loading-progress-wrap {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
+/* ── Arc groups — start off screen via CSS ──────────────────────── */
+/* Arc 1 starts FAR RIGHT */
+.loading-arc-group-1 {
+  opacity: 0;
+  transform: translateX(600px);
   will-change: transform, opacity;
 }
 
-.loading-progress {
+/* Arc 2 starts FAR LEFT */
+.loading-arc-group-2 {
+  opacity: 0;
+  transform: translateX(-600px);
+  will-change: transform, opacity;
+}
+
+/* ── Divider line ───────────────────────────────────────────────── */
+.loading-divider {
   width: 180px;
-  height: 1.5px;
-  background: rgba(255, 255, 255, 0.08);
-  border-radius: 100px;
-  overflow: hidden;
+  height: 1px;
+  /* START: hidden */
+  opacity: 0;
+  transform: scaleX(0);
+  transform-origin: center;
+  background: linear-gradient(
+    to right,
+    transparent 0%,
+    rgba(196, 181, 253, 0.55) 30%,
+    rgba(196, 181, 253, 0.55) 70%,
+    transparent 100%
+  );
+  will-change: transform, opacity;
 }
 
-.loading-progress-bar {
-  height: 100%;
-  width: 100%;
-  background: linear-gradient(90deg, #4F46E5, #7C3AED, #A855F7);
-  background-size: 200% 100%;
-  border-radius: 100px;
-  transform-origin: left center;
-  animation: bar-shimmer 1.5s linear infinite;
+/* ── Wordmark ───────────────────────────────────────────────────── */
+.loading-wordmark {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  /* START: hidden */
+  opacity: 0;
+  will-change: opacity;
 }
 
-@keyframes bar-shimmer {
-  0% {
-    background-position: 100% 0;
-  }
+/* ── Letters ────────────────────────────────────────────────────── */
+.loading-letter {
+  font-family: var(--font-display, "Sora", sans-serif);
+  font-weight: 800;
+  font-size: 46px;
+  letter-spacing: 0.22em;
+  display: inline-block;
+  /* START: hidden */
+  opacity: 0;
+  transform: translateY(24px);
+  will-change: transform, opacity, filter;
 
-  100% {
-    background-position: -100% 0;
-  }
-}
-
-.loading-progress-num {
-  font-family: var(--font-body);
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.12em;
-  color: rgba(255, 255, 255, 0.3);
-  font-variant-numeric: tabular-nums;
+  background: linear-gradient(
+    155deg,
+    #ffffff  0%,
+    #e9d5ff 50%,
+    #a78bfa 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: blur(8px) drop-shadow(0 0 10px rgba(167, 139, 250, 0.38));
 }
