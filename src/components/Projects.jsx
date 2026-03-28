@@ -4,7 +4,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import trive from "../assets/images/trive.jpeg";
 import zfe from "../assets/images/zfe.png";
 import smartqueue from "../assets/images/smart_queue.png";
-// import inventoryVideo from "../assets/videos/Z-F-E System.mp4";
+import inventoryVideo from "../assets/videos/Z-F-E System.mp4";
 
 import { FaReact, FaExternalLinkAlt, FaGithub } from "react-icons/fa";
 import {
@@ -90,7 +90,7 @@ const projects = [
     color: "#A855F7",
     colorRgb: "168,85,247",
     imageUrl: zfe,
-    videoUrl: "",
+    videoUrl: inventoryVideo,
     siteUrl: "",
     repoUrl: "",
     details:
