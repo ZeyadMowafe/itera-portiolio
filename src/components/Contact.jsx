@@ -41,7 +41,7 @@ const contactInfo = [
     ),
     label: "WhatsApp",
     value: "+20 104 442 3156",
-    href: "https://wa.me/201044423156?text=Hello%2C%20I%20want%20to%20get%20in%20touch%20with%20Itera%20studio",
+    href: "https://wa.me/201044423156?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%D8%8C%20%D8%A3%D9%88%D8%AF%20%D8%A7%D9%84%D8%A7%D8%B3%D8%AA%D9%81%D8%B3%D8%A7%D8%B1%20%D8%B9%D9%86%20%D8%AE%D8%AF%D9%85%D8%A7%D8%AA%D9%83%D9%85%20%F0%9F%91%8B",
     color: "#A855F7",
     colorRgb: "168,85,247",
   },
