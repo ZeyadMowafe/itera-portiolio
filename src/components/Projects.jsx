@@ -4,9 +4,10 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import trive from "../assets/images/trive.jpeg";
 import zfe from "../assets/images/zfe.png";
 import smartqueue from "../assets/images/smart_queue.png";
-import inventoryVideo from "../assets/videos/Z-F-E System.mp4";
+import bahrstore from "../assets/images/bahr_store.png";
 
 import { FaReact, FaExternalLinkAlt, FaGithub } from "react-icons/fa";
+
 import {
   SiDjango,
   SiPostgresql,
@@ -15,6 +16,10 @@ import {
   SiDocker,
   SiSocketdotio,
   SiChartdotjs,
+  SiHtml5,
+  SiCss3,
+  SiJavascript,
+  SiSqlite,
 } from "react-icons/si";
 import { TbApi } from "react-icons/tb";
 
@@ -34,6 +39,10 @@ const techIconMap = {
   WebSocket: { icon: SiSocketdotio, color: "#010101" },
   Charts: { icon: SiChartdotjs, color: "#FF6384" },
   API: { icon: TbApi, color: "#00B4D8" },
+  HTML: { icon: SiHtml5, color: "#E34F26" },
+  CSS: { icon: SiCss3, color: "#1572B6" },
+  "Vanilla JS": { icon: SiJavascript, color: "#F7DF1E" },
+  SQLite: { icon: SiSqlite, color: "#003B57" },
 };
 
 function TechTag({ tag, cardColor }) {
@@ -63,7 +72,7 @@ const projects = [
     title: "E-Commerce Platform",
     category: "TRIVÉ Store",
     desc: "A premium fashion e-commerce platform with advanced filtering, real-time cart, and secure checkout experience.",
-    tags: ["React", "Django", "PostgreSQL" , "Redis"],
+    tags: ["React", "Django", "PostgreSQL", "Redis"],
     color: "#7C3AED",
     colorRgb: "124,58,237",
     imageUrl: trive,
@@ -86,11 +95,12 @@ const projects = [
     title: "Educational Management System",
     category: "Z.F.E System",
     desc: "Full-stack SaaS for managing students, attendance, payments, exams, and automated WhatsApp notifications.",
-    tags: ["React", "Django", "PostgreSQL" , "Node.js"],
+    tags: ["React", "Django", "PostgreSQL", "Node.js"],
     color: "#A855F7",
     colorRgb: "168,85,247",
     imageUrl: zfe,
-    videoUrl: inventoryVideo,
+    videoUrl:
+      "https://res.cloudinary.com/dwqz6dhxe/video/upload/v1774815490/Z-F-E_System_nttyo1.mp4",
     siteUrl: "",
     repoUrl: "",
     details:
@@ -111,7 +121,7 @@ const projects = [
     title: "Smart Booking & Queue System API",
     category: "SmartQueue Backend",
     desc: "Production-ready Django REST API for intelligent turn-based queue management with booking, services, and smart queue engine.",
-    tags: ["Django", "DRF", "PostgreSQL" , "Redis" , "Docker"],
+    tags: ["Django", "DRF", "PostgreSQL", "Redis", "Docker"],
     color: "#4F46E5",
     colorRgb: "79,70,229",
     imageUrl: smartqueue,
@@ -130,6 +140,42 @@ const projects = [
       "Redis caching for queue performance",
       "Swagger UI for interactive API documentation",
       "Unit & integration tests",
+    ],
+  },
+  {
+    id: 4,
+    title: "Bahr Store — POS System",
+    category: "Bahr Store",
+    desc: "Full-featured Point-of-Sale system with production-ready frontend (HTML, CSS, Vanilla JS) and Django REST backend, including product management, sales processing, and thermal receipt generation.",
+    tags: [
+      "HTML",
+      "CSS",
+      "Vanilla JS",
+      "Django",
+      "Django REST Framework",
+      "SQLite",
+      "Docker",
+    ],
+    color: "#625be6ad",
+    colorRgb: "98, 91, 230",
+    imageUrl: bahrstore,
+    videoUrl: "https://res.cloudinary.com/dwqz6dhxe/video/upload/v1774816560/bahr_store_h6d6lw.mp4",
+    siteUrl: "",
+    repoUrl: "",
+    details:
+      "Bahr Store POS is a complete point-of-sale and inventory management system delivered as a real client project. It features a fast, clean frontend built with HTML, CSS, and Vanilla JavaScript, fully RTL-supported for Arabic, integrated with a Django REST backend that manages products, sales, authentication, and stock updates. The system supports thermal receipts, real-time stock tracking, and a modular, scalable architecture.",
+    features: [
+      "Easy-to-use POS interface with live stock updates",
+      "80mm thermal printer-ready receipts",
+      "Full CRUD for products via Django REST API",
+      "Sales processing with discounts, totals, and timestamp",
+      "Automatic stock updates upon sales completion",
+      "Secure authentication and role-based access",
+      "SQLite database for offline usage",
+      "Docker-ready for deployment",
+      "Clean, modular, and scalable project structure",
+      "Frontend delivered as a real-world production project",
+      "Supports Arabic & fully RTL interface",
     ],
   },
 ];
