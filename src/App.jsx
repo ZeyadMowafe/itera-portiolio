@@ -18,6 +18,7 @@ import Footer from "./components/Footer";
 import FloatingButtons from "./components/FloatingButtons";
 import PrivacyPolicy from "./components/LegalPrivacy";
 import TermsOfService from "./components/TermsOfService";
+import Testimonials from "./components/Testimonials";
 
 /* ── Main portfolio page ─────────────────────────────────────────── */
 function AppInner() {
@@ -61,6 +62,7 @@ function AppInner() {
           <Services />
           <TechStack />
           <Projects />
+          <Testimonials />
           <Process />
           <Contact />
         </main>
